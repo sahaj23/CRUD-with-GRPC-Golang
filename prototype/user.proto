@@ -1,0 +1,77 @@
+syntax="proto3";
+
+package taskuser;
+
+option go_package = "prototype";
+//import "github.com/golang/protobuf/ptypes/empty/empty.proto";
+import "google/protobuf/empty.proto";
+//import "github.com/golang/protobuf/ptypes/empty/empty.proto";
+//import "google/protobuf/timestamp.proto";
+
+
+service UserProfiles {
+
+    // CreateProfile creates new user profile.
+    rpc CreateUserProfile (CreateUserProfileRequest) returns (UserProfile){}
+    // GetUserProfile returns the user profile by its unique user id.
+     rpc GetUserProfile (GetUserProfileRequest) returns (UserProfile){}
+
+    // // DeleteUserProfile will delete the user profile from the system.
+     rpc DeleteUserProfile (DeleteUserProfileRequest) returns (google.protobuf.Empty){}
+    // UpdateUserProfile will update the user profile identified by its user id.
+
+     rpc UpdateUserProfile (UpdateUserProfileRequest) returns (UserProfile){}
+
+     rpc ListUsersProfiles (ListUsersProfilesRequest) returns (ListUsersProfilesResponse){}
+
+}
+
+// UserProfile contains the user personal information
+message UserProfile {
+
+
+    // Id is the user id which uniquely identify a user
+    string id = 1;
+    // Email is the unique email of the user
+    string email = 2 ;
+    // FirstName is the user first name,it does not have any min length as it can
+    // be empty too.                    
+    string first_name = 3 ;
+    // LastName is the user last Name , it does not have any min length as it can
+    // be empty too.
+    string last_name = 4 ;
+    // BirthDate is the user`s date of birth
+   // google.protobuf.Timestamp birth_date = 5;
+    // Telephones are the user`s contact numbers and it should be saved with
+    // country code.
+   // repeated string telephones = 7;
+
+
+}
+
+message CreateUserProfileRequest {
+    UserProfile user_profile = 1 ;
+}
+
+message GetUserProfileRequest {
+    string id = 1;
+   
+}
+
+message DeleteUserProfileRequest {
+    string id = 1 ;
+}
+
+message UpdateUserProfileRequest {
+    UserProfile user_profile = 1 ;
+
+}
+
+
+message ListUsersProfilesRequest{
+    string query =1;
+}
+
+message ListUsersProfilesResponse{
+    repeated UserProfile profiles=1;
+}
